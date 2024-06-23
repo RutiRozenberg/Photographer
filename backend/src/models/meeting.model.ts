@@ -15,6 +15,6 @@ const meetingSchema: Schema = new Schema({
     description: String,
 });
 
-const mettingtModel: Model<Meeting> = mongoose.model<Meeting>('meeting', meetingSchema);
+const meetingtModel: Model<Meeting> = mongoose.model<Meeting>('meeting', meetingSchema);
 
-export { mettingtModel  ,Meeting};
+export { meetingtModel  ,Meeting};
