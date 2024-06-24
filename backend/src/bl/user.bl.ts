@@ -36,16 +36,16 @@ const signup = async (email: string, password: string, name: string) => {
 const signin = async (email :string , password :string ) => {
     const user: User | null = await getUserByEmail(email);
     if( user && await comparePassword(password, user.password)){
-        return await createToken(user.email , user.password);
+        return await createToken(user.email , user.password , false);
     }
     return null;
 }
 
 
-const createToken = async(email : string , name: string)=>{
+const createToken = async(email : string , name: string , isAdmin:boolean)=>{
     const secret:string | undefined = process.env.SECRET;
     if(secret){
-        const token = jwt.sign({ _id: email, name: name },
+        const token = jwt.sign({ _id: email, name , isAdmin},
             secret, {
                 expiresIn: "2h",
             }
@@ -56,4 +56,4 @@ const createToken = async(email : string , name: string)=>{
 }
 
 
-export {signup , signin}
+export {signup , signin , createToken}

@@ -1,0 +1,29 @@
+
+import { adminModel, Admin } from '../models/admin.model'; 
+
+
+const createAdmin = async (adminData: Admin): Promise<Admin> => {
+  try {
+    const newAdmin = new adminModel(adminData);
+    const savedAdmin = await newAdmin.save();
+    return savedAdmin;
+  } catch (error) {
+    throw new Error('Failed to save admin to the database');
+  }
+};
+
+
+const getAdmin = async () :Promise<Admin | unknown> => {
+    const admin = await adminModel.find().exec();
+    return admin;
+}
+
+const updateAdmin = async (email: string , updatedData:Admin ):Promise<void> =>{
+    try {
+        await adminModel.findByIdAndUpdate(email, updatedData);
+    } catch (error) {
+        throw new Error('Failed to update product in the database');
+    }
+}
+
+export { createAdmin , getAdmin , updateAdmin}

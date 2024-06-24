@@ -65,7 +65,6 @@ const postSignUp = async (req: Request, res: Response): Promise<void> => {
         if (!email || !password || !name) {
             res.status(400).send({ error: "Email, password, and name are required" });
         }
-        console.log(1111111111111111);
         const user = await signup(email, password, name);
         if (user) {
             res.status(201).send(user);

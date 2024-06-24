@@ -8,6 +8,7 @@ import './config/db.config';
 import {swaggerSetup} from './swagger';
 import userRouter from './routes/user.route';
 import { CheckBody }  from './middlewares/existBody.middleware'
+import adminRouter from './routes/admin.route';
 
 
 const app: Express = express();
@@ -27,6 +28,7 @@ app.use(cors());
 
 
 app.use(CheckBody);
+app.use(adminRouter)
 app.use(userRouter);
 
 
