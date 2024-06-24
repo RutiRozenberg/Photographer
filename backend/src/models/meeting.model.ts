@@ -2,10 +2,10 @@
 import mongoose, { Schema, Document, Model } from 'mongoose';
 
 interface Meeting extends Document {
-  name: string;
-  price: number;
+  UserEmail: string;
   time: Date;
-  description: string
+  description: string;
+  businessId: string;
 }
 
 const meetingSchema: Schema = new Schema({
