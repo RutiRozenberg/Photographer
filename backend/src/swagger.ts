@@ -11,7 +11,7 @@ const options = {
       description: 'API Documentation for your Node.js TypeScript application',
     },
   },
-  apis: ['src/controllers/user.controller.ts' ], 
+  apis: ['src/controllers/*.controller.ts' ], 
 };
 
 const specs = swaggerJsdoc(options);

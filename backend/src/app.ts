@@ -7,7 +7,7 @@ import dotenv from 'dotenv';
 import './config/db.config';
 import {swaggerSetup} from './swagger';
 import userRouter from './routes/user.route';
-
+import { CheckBody }  from './middlewares/existBody.middleware'
 
 
 const app: Express = express();
@@ -23,15 +23,15 @@ swaggerSetup(app);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 
-app.use(cors())
 
-
+app.use(CheckBody);
 app.use(userRouter);
 
 
 app.listen(port, () => {
 
-console.log('Server is running on port 3000');
+    console.log('Server is running on port ' + port);
 
 });
