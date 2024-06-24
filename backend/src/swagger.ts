@@ -11,11 +11,13 @@ const options = {
       description: 'API Documentation for your Node.js TypeScript application',
     },
   },
-  apis: ['src/*.ts'], // Specify the path to your route files
+  apis: ['src/controllers/user.controller.ts' ], 
 };
 
 const specs = swaggerJsdoc(options);
 
-export default (app: Express) => {
+const swaggerSetup = (app: Express): void => {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 };
+
+export { swaggerSetup };
