@@ -1,6 +1,4 @@
 
-
-
 import { Admin } from "../models/admin.model";
 import { comparePassword, hashPassword } from "./bcrypt.bl";
 import path from 'path';
@@ -38,7 +36,7 @@ const signup = async (email: string, password: string, name: string , adminPassw
 
 
 const signin = async (email :string , password :string , adminPassword:string):Promise<string | null> => {
-    
+
     const arrayAdmin: Admin [] | unknown = await getAdmin();
     if(arrayAdmin  && (arrayAdmin as Admin[]).length > 0){
         const admin: Admin = (arrayAdmin as Admin[])[0] ;
@@ -52,7 +50,6 @@ const signin = async (email :string , password :string , adminPassword:string):P
     }
     return null;
 }
-
 
 
 export {signup , signin}
