@@ -22,7 +22,7 @@ const updateAdmin = async (email: string , updatedData:Admin ):Promise<void> =>{
     try {
         await adminModel.findByIdAndUpdate(email, updatedData);
     } catch (error) {
-        throw new Error('Failed to update product in the database');
+        throw new Error('Failed to update admin in the database');
     }
 }
 

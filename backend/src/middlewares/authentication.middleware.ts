@@ -1,11 +1,9 @@
 
-
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+import { AuthRequest } from '../models/authRequest.model';
 
-interface AuthRequest extends Request {
-    user?: unknown;
-}
+
 
 const authentication = (req: AuthRequest, res: Response, next: NextFunction) => {
     const authHeader = req.headers['authorization'];    
@@ -20,13 +18,13 @@ const authentication = (req: AuthRequest, res: Response, next: NextFunction) => 
             throw new Error("Token not provided");
         }
 
-        const decoded = jwt.verify(token, process.env.SECRET || '');
-        req.user = decoded;
+        const decoded = jwt.verify(token, process.env.SECRET || '') as AuthRequest;
+        req.user  = typeof decoded === 'string' ? JSON.parse(decoded) : decoded as AuthRequest;
         next();
     } catch (err) {
-        console.error("Authentication error:", err);
         return res.status(401).send("Unauthorized: Invalid Token");
     }
 };
 
 export { authentication };
+

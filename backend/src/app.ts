@@ -10,6 +10,7 @@ import authUserRouter from './routes/auth.user.route';
 import { CheckBody } from './middlewares/existBody.middleware'
 import authAdminRouter from './routes/auth.admin.route';
 import { authentication } from './middlewares/authentication.middleware';
+import { authorization } from './middlewares/authorization.middleware';
 
 
 const app: Express = express();
@@ -22,19 +23,16 @@ const port = process.env.PORT;
 
 swaggerSetup(app);
 
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
-
 
 app.use(CheckBody);
 app.use(authAdminRouter);
 app.use(authUserRouter);
 app.use(authentication);
+app.use(authorization);
 
 app.listen(port, () => {
-
     console.log('Server is running on port ' + port);
-
 });
