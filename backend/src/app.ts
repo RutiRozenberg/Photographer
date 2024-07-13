@@ -9,6 +9,7 @@ import { swaggerSetup } from './swagger';
 import authUserRouter from './routes/auth.user.route';
 import { CheckBody } from './middlewares/existBody.middleware'
 import authAdminRouter from './routes/auth.admin.route';
+import businessRouter from './routes/business.route'
 import { authentication } from './middlewares/authentication.middleware';
 import { authorization } from './middlewares/authorization.middleware';
 
@@ -32,6 +33,7 @@ app.use(authAdminRouter);
 app.use(authUserRouter);
 app.use(authentication);
 app.use(authorization);
+app.use(businessRouter);
 
 app.listen(port, () => {
     console.log('Server is running on port ' + port);

@@ -2,14 +2,14 @@
 import mongoose, { Schema, Document, Model } from 'mongoose';
 
 interface Business extends Document {
-    adress: string;
+    address: string;
     name: string;
     email: string;
     phone: string;
 }
 
 const busniessSchema: Schema = new Schema({
-    adress: String,
+    address: String,
     name: String,
     email: String,
     phone: String
