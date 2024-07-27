@@ -8,13 +8,13 @@ interface Business extends Document {
     phone: string;
 }
 
-const busniessSchema: Schema = new Schema({
+const businessSchema: Schema = new Schema({
     address: String,
     name: String,
     email: String,
     phone: String
 });
 
-const busniesstModel: Model<Business> = mongoose.model<Business>('busniess', busniessSchema);
+const businesstModel: Model<Business> = mongoose.model<Business>('busniess', businessSchema);
 
-export { busniesstModel  ,Business};
+export { businesstModel  ,Business};

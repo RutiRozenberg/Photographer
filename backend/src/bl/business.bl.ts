@@ -41,23 +41,29 @@ const updateBusiness = async (email :string , business: Business)=> {
     if(email != business.email ){
         throw new Error("Invalid parameters");
     }
-    const businessToUpdate = ( await getBusiness())  as unknown as Business;
-    if(business.name){
-        businessToUpdate.name =business.name;
-    }
-    if(business.address){
-        businessToUpdate.address = business.address;
-    }
-    if(business.phone){
-        businessToUpdate.phone= business.phone;
-    } 
-
     try{
-        businessService.updateBusiness(businessToUpdate);
+        const businessToUpdate = ( await getBusiness())  as unknown as Business;
+        if(business.name){
+            businessToUpdate.name =business.name;
+        }
+        if(business.address){
+            businessToUpdate.address = business.address;
+        }
+        if(business.phone){
+            businessToUpdate.phone= business.phone;
+        } 
+    
+        try{
+            return await businessService.updateBusiness(businessToUpdate);
+        }
+        catch(err){
+            throw new Error("The update failed");
+        }
     }
-    catch(err){
-        throw new Error("The update failed");
+    catch{
+        throw new Error("Not Found"); 
     }
+    
 }
 
 
