@@ -19,26 +19,34 @@ const getBusiness =async ()=>{
 }
 
 const createBusiness = async (newBusiness: Business)=>{
-    if( newBusiness.name == null || 
-        newBusiness.address == null || 
-        newBusiness.email == null || 
-        newBusiness.phone == null )
-        {
-            throw new Error("Invalid business details");
-            
-        }
-
     try{
-        return await businessService.createBusiness(newBusiness) as Business;
+        const business = await businessService.getBusiness();
+        if(business){
+            throw new Error("Business elready exist");
+        }
+        if( newBusiness.name == null || 
+            newBusiness.address == null || 
+            newBusiness.email == null || 
+            newBusiness.phone == null )
+            {
+                throw new Error("Invalid business details");
+                
+            }
+            const Business = await businessService.getBusiness();
+            if(Business != null){
+                throw new Error("The business already exists");
+
+            }
+            return await businessService.createBusiness(newBusiness) as Business;
     }
     catch(err){
         throw new Error("Business creation failed");
     }
-    
 }
 
-const updateBusiness = async (email :string , business: Business)=> {
-    if(email != business.email ){
+
+const updateBusiness = async (id :string , business: Business)=> {
+    if(id != business.id ){
         throw new Error("Invalid parameters");
     }
     try{
@@ -54,7 +62,7 @@ const updateBusiness = async (email :string , business: Business)=> {
         } 
     
         try{
-            return await businessService.updateBusiness(businessToUpdate);
+            return await businessService.updateBusiness(id , businessToUpdate);
         }
         catch(err){
             throw new Error("The update failed");
@@ -67,13 +75,13 @@ const updateBusiness = async (email :string , business: Business)=> {
 }
 
 
-const deleteBusiness = async (email: string)=>{
-    const business:Business =  (await getBusiness()) as unknown as Business;
-    if(business.email != email){
-        throw new Error("No permissions");
-    }
+const deleteBusiness = async (id: string)=>{
     try{
-        await businessService.deleteBusiness(email);
+        const business:Business =  (await getBusiness()) as unknown as Business;
+        if(business.id != id){
+            throw new Error("No permissions");
+        }
+        await businessService.deleteBusiness(id);
     }
     catch{
         throw new Error("The deletion failed");

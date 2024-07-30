@@ -14,6 +14,7 @@ import { Request, Response } from 'express';
  *         - name
  *         - email
  *         - phone
+ *         - id 
  *       properties:
  *         address:
  *           type: string
@@ -27,11 +28,15 @@ import { Request, Response } from 'express';
  *         phone:
  *           type: string
  *           description: The business phone number
+ *         id:
+ *           type: string
+ *           desciption: The Business id 
  *       example:
  *         address: '123 Main Street'
  *         name: 'ABC Company'
  *         email: 'info@abccompany.com'
  *         phone: '123-456-7890'
+ *         id: '124545-gvn'
  */
 
 /**
@@ -90,11 +95,11 @@ const getBusiness = async (req: Request, res: Response): Promise<void> => {
  */
 const createBusiness = async (req: Request, res: Response): Promise<void> => {
     try {
-        const business: Business | null = req.body as unknown as Business;
+        const business: Business = req.body as unknown as Business;                
         const newBusiness: Business = await businessBl.createBusiness(business);
         res.status(201).send(newBusiness);
     } catch (err) {
-        res.status(400).send("Invalid business details");
+        res.status(400).send("Business created faild");
     }
 }
 
@@ -133,8 +138,13 @@ const updateBusiness = async (req: Request, res: Response): Promise<void> => {
         const businessToUpdate: Business = req.body;
         const updatedBusiness: Business = await businessBl.updateBusiness(id, businessToUpdate) as unknown as Business;
         res.status(200).send(updatedBusiness);
-    } catch (err) {
-        res.status(400).send("Business update failed");
+    } catch (err : unknown) {
+        if(err instanceof Error){
+            res.status(400).send(err.message);
+        }
+        else{
+            res.status(400).send("An unknown error occurred");
+        }
     }
 }
 

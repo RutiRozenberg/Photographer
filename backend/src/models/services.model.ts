@@ -1,5 +1,6 @@
 
 import mongoose, { Schema, Document, Model } from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
 
 interface Service extends Document {
     id : string ;
@@ -10,7 +11,11 @@ interface Service extends Document {
 }
 
 const serviceSchema: Schema = new Schema({
-    id : String ,
+    id: {
+        type: String,
+        default: uuidv4, 
+        unique: true
+    },
     price: Number,
     name: String,
     duration : Number, 

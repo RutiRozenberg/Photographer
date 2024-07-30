@@ -6,7 +6,7 @@ const createBusiness = async (BusinessData : Business)=>{
     try {
         const newBusiness = new businesstModel(BusinessData);
         const savedBusiness = await newBusiness.save();
-        return savedBusiness;
+        return savedBusiness;   
     }catch (error) {
         throw new Error('Failed to save business to the database');
     }
@@ -19,11 +19,9 @@ const getBusiness = async () => {
 }
 
 
-const updateBusiness = async ( updatedData : Business ) => {
+const updateBusiness = async ( id:string , updatedData : Business ) => {
     try {
-        const businessObject:Business = (await getBusiness() ) as unknown as Business;
-        const email = businessObject.email;
-        await businesstModel.updateOne( {email} , updatedData);
+        await businesstModel.updateOne( {id} , updatedData);
         return await getBusiness();
     } 
     catch {
@@ -32,9 +30,9 @@ const updateBusiness = async ( updatedData : Business ) => {
 }
 
 
-const deleteBusiness = async (email:string) =>{
+const deleteBusiness = async (id:string) =>{
     try{        
-        await businesstModel.deleteOne({email});
+        await businesstModel.deleteOne({id});
     }
     catch{
         throw new Error("The deletion failed");

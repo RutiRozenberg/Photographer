@@ -11,7 +11,6 @@ import { CheckBody } from './middlewares/existBody.middleware'
 import authAdminRouter from './routes/auth.admin.route';
 import businessRouter from './routes/business.route'
 import { authentication } from './middlewares/authentication.middleware';
-import { authorization } from './middlewares/authorization.middleware';
 
 
 const app: Express = express();
@@ -32,7 +31,6 @@ app.use(CheckBody);
 app.use(authAdminRouter);
 app.use(authUserRouter);
 app.use(authentication);
-app.use(authorization);
 app.use(businessRouter);
 
 app.listen(port, () => {
