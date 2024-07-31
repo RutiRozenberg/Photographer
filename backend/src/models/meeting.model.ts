@@ -21,6 +21,11 @@ const meetingSchema: Schema = new Schema({
   description: String,
 });
 
+meetingSchema.pre('save', function (next) {
+  this.id = uuidv4();
+  next();
+});
+
 const meetingtModel: Model<Meeting> = mongoose.model<Meeting>('meeting', meetingSchema);
 
 export { meetingtModel, Meeting };

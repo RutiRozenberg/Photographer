@@ -21,6 +21,11 @@ const userSchema: Schema = new Schema({
   password: String,
 });
 
+userSchema.pre('save', function (next) {
+  this.id = uuidv4();
+  next();
+});
+
 const userModel: Model<User> = mongoose.model<User>('user', userSchema);
 
 export { userModel , User};

@@ -18,9 +18,9 @@ const getAdmin = async () :Promise<Admin | unknown> => {
     return admin;
 }
 
-const updateAdmin = async (email: string , updatedData:Admin ):Promise<void> =>{
+const updateAdmin = async (id: string , updatedData:Admin ):Promise<void> =>{
     try {
-        await adminModel.findByIdAndUpdate(email, updatedData);
+        await adminModel.updateOne({id}, updatedData);
     } catch (error) {
         throw new Error('Failed to update admin in the database');
     }

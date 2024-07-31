@@ -20,6 +20,11 @@ const adminSchema: Schema = new Schema({
     password: String,
 });
 
+adminSchema.pre('save', function (next) {
+    this.id = uuidv4();
+    next();
+});
+
 const adminModel: Model<Admin> = mongoose.model<Admin>('admin', adminSchema);
 
 export { adminModel , Admin };

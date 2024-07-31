@@ -8,12 +8,13 @@ import { Request, Response } from 'express';
  * components:
  *   schemas:
  *     Admin:
- *       type: object
+ *       type: Admin
  *       required:
  *         - email
  *         - password
  *         - name
  *         - adminPassword
+ *         - id 
  *       properties:
  *         email:
  *           type: string
@@ -27,7 +28,11 @@ import { Request, Response } from 'express';
  *         adminPassword:
  *           type: string
  *           description: The admin's special password
+ *         id:
+ *           type: string
+ *           description: The sdmin's id
  *       example:
+ *         id: '4545d-dfbf'
  *         email: 'admin@example.com'
  *         password: 'admin123'
  *         name: 'Admin Name'

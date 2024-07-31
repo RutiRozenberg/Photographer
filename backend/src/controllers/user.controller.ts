@@ -14,11 +14,12 @@ export class ValidationError extends Error {
  * components:
  *   schemas:
  *     User:
- *       type: object
+ *       type: User
  *       required:
  *         - email
  *         - password
  *         - name
+ *         - id 
  *       properties:
  *         email:
  *           type: string
@@ -29,7 +30,11 @@ export class ValidationError extends Error {
  *         name:
  *           type: string
  *           description: The user's name
+ *         id:
+ *           type: string
+ *           description: The user's id
  *       example:
+ *         id: 'dfvdfbv*fg-ffb'
  *         email: 'user@example.com'
  *         password: 'password123'
  *         name: 'John Doe'

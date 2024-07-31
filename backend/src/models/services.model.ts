@@ -23,6 +23,11 @@ const serviceSchema: Schema = new Schema({
     
 });
 
+serviceSchema.pre('save', function (next) {
+    this.id = uuidv4();
+    next();
+});
+
 const servicetModel: Model<Service> = mongoose.model<Service>('services', serviceSchema);
 
 export { servicetModel  , Service};

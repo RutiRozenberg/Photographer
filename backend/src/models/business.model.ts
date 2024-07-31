@@ -22,6 +22,11 @@ const businessSchema: Schema = new Schema({
     phone: String
 });
 
+businessSchema.pre('save', function (next) {
+    this.id = uuidv4(); 
+    next();
+});
+
 const businesstModel: Model<Business> = mongoose.model<Business>('busniess', businessSchema);
 
 export { businesstModel  ,Business};

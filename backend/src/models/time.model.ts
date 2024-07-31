@@ -17,6 +17,11 @@ const timeSchema: Schema = new Schema({
     isCatch: Boolean,
 });
 
+timeSchema.pre('save', function (next) {
+    this.id = uuidv4();
+    next();
+});
+
 const timetModel: Model<Time> = mongoose.model<Time>('times', timeSchema);
 
 export { timetModel  , Time};
