@@ -15,7 +15,7 @@ import { Request, Response } from 'express';
  * components:
  *   schemas:
  *     Service:
- *       type: object
+ *       type: Service
  *       required:
  *         - id
  *         - name

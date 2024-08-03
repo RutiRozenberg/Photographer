@@ -3,17 +3,18 @@ import mongoose, { Schema, Document, Model } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 
 interface Time extends Document {
-    time: Date;
+    date: Date;
     isCatch: boolean;
+    id: string;
 }
 
 const timeSchema: Schema = new Schema({
     id: {
         type: String,
-        default: uuidv4, 
+        default: uuidv4,
         unique: true
     },
-    time: Date,
+    date: Date,
     isCatch: Boolean,
 });
 
@@ -24,4 +25,4 @@ timeSchema.pre('save', function (next) {
 
 const timetModel: Model<Time> = mongoose.model<Time>('times', timeSchema);
 
-export { timetModel  , Time};
+export { timetModel, Time };
