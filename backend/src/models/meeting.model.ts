@@ -3,10 +3,11 @@ import mongoose, { Schema, Document, Model } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 
 interface Meeting extends Document {
-  UserEmail: string;
-  time: Date;
-  description: string;
-  businessId: string;
+  id: string;
+  userId: string;
+  timeId: string;
+  serviceId: string;
+  textMessage: string;
 }
 
 const meetingSchema: Schema = new Schema({
@@ -15,10 +16,10 @@ const meetingSchema: Schema = new Schema({
     default: uuidv4,
     unique: true
   },
-  name: String,
-  price: Number,
-  time: Date,
-  description: String,
+  userId: String,
+  timeId: String,
+  serviceId: String,
+  textMessage: String,
 });
 
 meetingSchema.pre('save', function (next) {
@@ -26,6 +27,6 @@ meetingSchema.pre('save', function (next) {
   next();
 });
 
-const meetingtModel: Model<Meeting> = mongoose.model<Meeting>('meeting', meetingSchema);
+const meetingModel: Model<Meeting> = mongoose.model<Meeting>('meeting', meetingSchema);
 
-export { meetingtModel, Meeting };
+export { meetingModel, Meeting };

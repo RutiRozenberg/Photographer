@@ -27,6 +27,16 @@ const getAllUsers = async () :Promise<User[] | undefined> => {
   return users;
 }
 
+const getUserById = async (id :string ) =>{
+  try {
+    const user:User | null = await userModel.findOne({id});
+    return user;
+  } catch{
+    throw new Error("Failed");
+    
+  }
+}
 
 
-export { createUser , getUserByEmail , getAllUsers}
+
+export { createUser , getUserByEmail , getAllUsers , getUserById}

@@ -4,7 +4,7 @@ import { comparePassword, hashPassword } from "./bcrypt.bl";
 import jwt from 'jsonwebtoken';
 import path from 'path';
 import dotenv from 'dotenv';
-import { createUser, getUserByEmail } from "../services/user.service";
+import * as userService from "../services/user.service";
 
 
 const envPath = path.join(__dirname, '../config', '.env');
@@ -12,7 +12,7 @@ dotenv.config({ path: envPath });
 
 
 const signup = async (email: string, password: string, name: string) => {
-    const existingUser = await getUserByEmail(email);
+    const existingUser = await userService.getUserByEmail(email);
     if (existingUser) {
         throw new Error('User with this email already exists');
     }
@@ -23,7 +23,7 @@ const signup = async (email: string, password: string, name: string) => {
             password : hashedPassword,
             name,
         } as User;
-        const user = await createUser(newUser);
+        const user = await userService.createUser(newUser);
         return user;
     }
     catch(err){
@@ -34,7 +34,7 @@ const signup = async (email: string, password: string, name: string) => {
 
 
 const signin = async (email :string , password :string ) => {
-    const user: User | null = await getUserByEmail(email);
+    const user: User | null = await userService.getUserByEmail(email);
     if( user && await comparePassword(password, user.password)){
         return await createToken(user.email , user.password , false);
     }
@@ -42,10 +42,10 @@ const signin = async (email :string , password :string ) => {
 }
 
 
-const createToken = async(email : string , name: string , isAdmin:boolean)=>{
+const createToken = async( email : string , password: string , isAdmin:boolean)=>{
     const secret:string | undefined = process.env.SECRET;
     if(secret){
-        const token = jwt.sign({ _id: email, name , isAdmin},
+        const token = jwt.sign({ _id:email, password , isAdmin},
             secret, {
                 expiresIn: "2h",
             }
@@ -56,4 +56,21 @@ const createToken = async(email : string , name: string , isAdmin:boolean)=>{
 }
 
 
-export {signup , signin , createToken}
+const getUserById = async (id: string ) =>{
+    try{
+        const user:User |null = await userService.getUserById(id);
+        if(user){
+            return user; 
+        }
+        else{
+            throw new Error("Not Found");
+            
+        }
+    }
+    catch{
+        throw new Error("faild");
+    }
+}
+
+
+export {signup , signin , createToken , getUserById}
