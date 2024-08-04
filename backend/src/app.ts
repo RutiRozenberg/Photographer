@@ -15,6 +15,7 @@ import serviceRouter from './routes/service.route'
 import  timeRouter from './routes/time.route';
 import meetingRouter from './routes/meeting.route';
 import urlnotFound from './middlewares/url.not.found.middleware';
+import userRouter from './routes/user.route';
 
 const app: Express = express();
 
@@ -38,6 +39,7 @@ app.use(businessRouter);
 app.use(serviceRouter);
 app.use(timeRouter);
 app.use(meetingRouter);
+app.use(userRouter);
 app.use(urlnotFound);
 
 app.listen(port, () => {

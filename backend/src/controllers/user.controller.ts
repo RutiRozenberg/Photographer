@@ -1,5 +1,6 @@
-import { signin, signup } from "../bl/user.bl"
+import * as userBl from "../bl/user.bl"
 import { Request, Response } from 'express';
+import { User } from "../models/user.model";
 
 
 export class ValidationError extends Error {
@@ -70,7 +71,7 @@ const postSignUp = async (req: Request, res: Response): Promise<void> => {
         if (!email || !password || !name) {
             res.status(400).send({ error: "Email, password, and name are required" });
         }
-        const user = await signup(email, password, name);
+        const user = await userBl.signup(email, password, name);
         if (user) {
             res.status(201).send(user);
         } else {
@@ -122,7 +123,7 @@ const postSignIn = async (req: Request, res: Response): Promise<void> => {
     try {
         const { email, password } = req.body;
         if (email && password) {
-            const token = await signin(email, password);
+            const token = await userBl.signin(email, password);
             if (token) {
                 res.status(200).send(token);
             } else {
@@ -137,4 +138,110 @@ const postSignIn = async (req: Request, res: Response): Promise<void> => {
 };
 
 
-export { postSignUp, postSignIn }
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     summary: Get all users
+ *     tags: [User]
+ *     responses:
+ *       200:
+ *         description: List of all users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/User'
+ *       404:
+ *         description: Users not found
+ */
+const getAllUsers = async( req:Request , res:Response)=>{
+    try{
+        const users:User[] = await userBl.getAllUsers();
+        res.status(200).send(users);
+    }
+    catch{
+        res.status(404).send("Not found");
+    }
+}
+
+
+/**
+ * @swagger
+ * /user/{id}:
+ *   put:
+ *     summary: Update a user by ID
+ *     tags: [User]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the user to update
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
+ *     responses:
+ *       200:
+ *         description: User updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       400:
+ *         description: User update failed
+ */
+const updateUser = async (req:Request , res:Response)=>{    
+    try{
+        const id:string = req.params.id;
+        const user:User = req.body;
+        await userBl.updateUser(id, user);
+        res.status(200).send("Seccesful");
+    }
+    catch{
+        res.status(400).send("Faild");
+    }
+}
+
+
+/**
+ * @swagger
+ * /user/{id}:
+ *   get:
+ *     summary: Get a user by ID
+ *     tags: [User]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the user to retrieve
+ *     responses:
+ *       200:
+ *         description: User details retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       404:
+ *         description: User not found
+ */
+const getUserById = async (req:Request , res:Response)=>{
+  try{    
+    const id:string = req.params.id;
+    const user = await userBl.getUserById(id);
+    res.status(200).send(user);
+  }
+  catch{
+    res.status(404).send("Not Found");
+  }
+}
+
+
+export { postSignUp, postSignIn , getAllUsers , updateUser , getUserById};

@@ -5,19 +5,29 @@ import * as userBl from '../bl/user.bl';
 import { User } from '../models/user.model';
 
 
-const currentUserAuthorization = async(req: AuthRequest, res: Response, next: NextFunction) => {
+const currentUserAuthorization = async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
         const currentUserRole = req.user;
-        const id: string = req.body.userId;
-        const user:User = await userBl.getUserById(id);
-        if(currentUserRole?._id != user.email){
+        let id: string = '';
+        if (req.body.userId) {
+            id = req.body.userId;
+        }
+        if(req.params.id)
+        {
+            id = req.params.id;
+        }
+        if(req.body.id) {
+           id = req.body.id;
+        }
+        const user: User = await userBl.getUserById(id);
+        if (currentUserRole?._id != user.email) {
             return res.status(403).send("Forbidden: current User does not have the necessary role");
         }
-        else{
+        else {            
             next();
         }
     }
-    catch{
+    catch {
         return res.status(400).send("Faild");
     }
 };

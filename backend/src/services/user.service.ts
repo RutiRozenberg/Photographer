@@ -21,15 +21,9 @@ const getUserByEmail = async (email: string): Promise<User | null> => {
     }
 };
 
-
-const getAllUsers = async () :Promise<User[] | undefined> => {
-  const users = await userModel.find().exec();
-  return users;
-}
-
 const getUserById = async (id :string ) =>{
   try {
-    const user:User | null = await userModel.findOne({id});
+    const user:User | null = await userModel.findOne({id});    
     return user;
   } catch{
     throw new Error("Failed");
@@ -37,6 +31,27 @@ const getUserById = async (id :string ) =>{
   }
 }
 
+const updateUser = async (id: string , userData:User)=>{
+  try{
+    await userModel.updateOne({id}, userData);
+  }
+  catch{
+    throw new Error("Faild");
+  }
+}
 
 
-export { createUser , getUserByEmail , getAllUsers , getUserById}
+const getAllUsers = async(): Promise<User[]>=>{
+  try{
+    const users:User[] =  await userModel.find();
+    return users;
+   
+  }
+  catch{
+    throw new Error("Faild");
+  }
+}
+
+
+
+export { createUser , getUserByEmail , getAllUsers , getUserById , updateUser };

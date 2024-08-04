@@ -64,7 +64,6 @@ const getUserById = async (id: string ) =>{
         }
         else{
             throw new Error("Not Found");
-            
         }
     }
     catch{
@@ -72,5 +71,37 @@ const getUserById = async (id: string ) =>{
     }
 }
 
+const getAllUsers = async ()=>{
+    try{
+        const users:User[] = await userService.getAllUsers();
+        if(users.length > 0)
+        {
+            return users;
+        }
+        throw new Error("Not found");
+    }
+    catch{
+        throw new Error("Faild");
+    }
+}
 
-export {signup , signin , createToken , getUserById}
+const updateUser= async (id:string , userData:User)=>{
+  try{
+    if(id!=userData.id){
+        throw new Error("");  
+    }
+    const userToUpdate:User = await getUserById(id);
+    if(userData.name){
+        userToUpdate.name= userData.name;
+    }
+    await userService.updateUser(id , userToUpdate);
+  }
+  catch{
+    throw new Error("Faild");
+    
+  }
+
+}
+
+
+export {signup , signin , createToken , getUserById, getAllUsers , updateUser}
