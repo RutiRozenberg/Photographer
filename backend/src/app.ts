@@ -14,6 +14,7 @@ import { authentication } from './middlewares/authentication.middleware';
 import serviceRouter from './routes/service.route'
 import  timeRouter from './routes/time.route';
 import meetingRouter from './routes/meeting.route';
+import urlnotFound from './middlewares/url.not.found.middleware';
 
 const app: Express = express();
 
@@ -37,6 +38,7 @@ app.use(businessRouter);
 app.use(serviceRouter);
 app.use(timeRouter);
 app.use(meetingRouter);
+app.use(urlnotFound);
 
 app.listen(port, () => {
     console.log('Server is running on port ' + port);    
