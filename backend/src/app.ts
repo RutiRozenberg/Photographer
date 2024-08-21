@@ -10,7 +10,6 @@ import authUserRouter from './routes/auth.user.route';
 import { CheckBody } from './middlewares/existBody.middleware'
 import authAdminRouter from './routes/auth.admin.route';
 import businessRouter from './routes/business.route'
-import { authentication } from './middlewares/authentication.middleware';
 import serviceRouter from './routes/service.route'
 import  timeRouter from './routes/time.route';
 import meetingRouter from './routes/meeting.route';
@@ -34,7 +33,6 @@ app.use(cors());
 app.use(CheckBody);
 app.use(authAdminRouter);
 app.use(authUserRouter);
-app.use(authentication);
 app.use(businessRouter);
 app.use(serviceRouter);
 app.use(timeRouter);
