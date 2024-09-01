@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../store/store"
 import { fetchServices } from "../store/features/services.slice";
 import { Box, Typography, useTheme } from "@mui/material";
+import { Helmet } from 'react-helmet';
 
 export default function Services() {
 
@@ -15,12 +16,16 @@ export default function Services() {
 
   return (
     <>
+      <Helmet>
+        <title>Racheli - Services</title>
+      </Helmet>
+      
       <Box
         sx={{
           width: '100%',
           background: `linear-gradient(90deg, ${theme.palette.primary.main} 40%, ${theme.palette.primary.dark} 80%)`,
           paddingTop: '10vh',
-          paddingBottom : '10vh',
+          paddingBottom: '10vh',
           display: 'flex',
           justifyContent: 'center',
           boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',

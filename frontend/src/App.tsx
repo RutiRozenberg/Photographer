@@ -34,26 +34,24 @@ const theme = createTheme({
     },
   },
 });
-
-
 function App() {
 
   return (
 
-    <Provider store={store}>
-      <BrowserRouter >
-        <ThemeProvider theme={theme}>
-          <Routes>
-            <Route path="/" element={<ResponsiveAppBar/>} >
-              <Route index element={<Home/>} />
-              <Route path="/services" element={<Services />} />
-              <Route path='/meetings' element={<Meetings />} />
-              <Route path="/signin" element={<Signin />} />
-            </Route>
-          </Routes>
-        </ThemeProvider>
-      </BrowserRouter>
-    </Provider>
+      <Provider store={store}>
+        <BrowserRouter >
+          <ThemeProvider theme={theme}>
+            <Routes>
+              <Route path="/" element={<ResponsiveAppBar />} >
+                <Route index element={<Home />} />
+                <Route path="/services" element={<Services />} />
+                <Route path='/meetings' element={<Meetings />} />
+                <Route path="/signin" element={<Signin />} />
+              </Route>
+            </Routes>
+          </ThemeProvider>
+        </BrowserRouter>
+      </Provider>
 
   )
 }
