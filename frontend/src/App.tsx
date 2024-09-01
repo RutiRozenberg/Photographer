@@ -6,19 +6,24 @@ import Signin from './components/signin.component'
 import ResponsiveAppBar from './components/responsiveAppBar'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Meetings from './components/meetings.component'
-
+import { Provider } from 'react-redux'
+import { store } from './store/store'
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#e91e63',
+      main: '#ed9ba7',
+      light: '#fbd4d5',
+      dark: '#ef8295',
     },
     secondary: {
-      main: '#f48fb1', 
+      main: '#54a1ac',
+      light: '#b5d5d6',
+      dark: '#395e73',
     },
     text: {
-      primary: '#880e4f', 
-      secondary: '#c2185b', 
+      primary: '#54a1ac',
+      secondary: '#ed9ba7',
     },
   },
   typography: {
@@ -34,19 +39,22 @@ const theme = createTheme({
 function App() {
 
   return (
-    < >
+
+    <Provider store={store}>
       <BrowserRouter >
         <ThemeProvider theme={theme}>
-          <ResponsiveAppBar></ResponsiveAppBar>
+          <Routes>
+            <Route path="/" element={<ResponsiveAppBar/>} >
+              <Route index element={<Home/>} />
+              <Route path="/services" element={<Services />} />
+              <Route path='/meetings' element={<Meetings />} />
+              <Route path="/signin" element={<Signin />} />
+            </Route>
+          </Routes>
         </ThemeProvider>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/services" element={<Services />} />
-          <Route path='/meetings' element={<Meetings/>}/>
-          <Route path="/signin" element={<Signin />} />
-        </Routes>
       </BrowserRouter>
-    </>
+    </Provider>
+
   )
 }
 
