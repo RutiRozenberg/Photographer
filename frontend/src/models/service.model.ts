@@ -4,5 +4,5 @@ export interface Service {
     price: number;
     name: string;
     duration : number; 
-    countPhoto: number;
+    description: string;
 }

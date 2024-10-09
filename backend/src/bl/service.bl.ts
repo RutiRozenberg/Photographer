@@ -36,7 +36,7 @@ const createService = async (newService: Service)=>{
     if( newService.price == null 
         || newService.name == null 
         || newService.duration ==null 
-        || newService.countPhoto == null)
+        || newService.description == null)
         {
             throw new Error("Invalid service details");
             
@@ -64,8 +64,8 @@ const updateService = async (id :string , service: Service)=> {
     if(service.duration){
         serviceToUpdate.duration= service.duration;
     } 
-    if(service.countPhoto){
-        serviceToUpdate.countPhoto = service.countPhoto;
+    if(service.description){
+        serviceToUpdate.description = service.description;
     }
 
     try{

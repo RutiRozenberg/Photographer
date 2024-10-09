@@ -7,7 +7,7 @@ interface Service extends Document {
     price: number;
     name: string;
     duration : number; 
-    countPhoto: number;
+    description: string;
 }
 
 const serviceSchema: Schema = new Schema({
@@ -19,8 +19,7 @@ const serviceSchema: Schema = new Schema({
     price: Number,
     name: String,
     duration : Number, 
-    countPhoto: Number,
-    
+    description: String,
 });
 
 serviceSchema.pre('save', function (next) {

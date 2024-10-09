@@ -21,7 +21,7 @@ import { Request, Response } from 'express';
  *         - name
  *         - duration
  *         - price
- *         - countPhoto
+ *         - description
  *       properties:
  *         id:
  *           type: string
@@ -35,15 +35,15 @@ import { Request, Response } from 'express';
  *         price:
  *           type: number
  *           description: The price of the service
- *         countPhoto:
- *           type: number
- *           description: The photo number in the service
+ *         description:
+ *           type: strind
+ *           description: The description of the service
  *       example:
  *         id: '1'
  *         name: 'Photography session'
  *         duration: 120
  *         price: 100
- *         countPhoto: 15
+ *         description: "hdbfjwbdiufbweubcuwebu"
  */
 
 
